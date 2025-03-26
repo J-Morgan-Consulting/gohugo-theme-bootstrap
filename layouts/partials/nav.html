@@ -5,10 +5,8 @@
         {{ with .Site.GetPage "settings" }}
         <div class="d-flex align-items-center">
             {{ $dir := replace .File.Dir "\\" "/" }}
-            {{ $imagePath := printf "%s%s%s" $baseURL $dir (replace (.Param "logo_image") "\\" "/") | safeURL }}
+            {{ $imagePath := printf "%s%s%s" $baseURL $dir (replace (.Param "logo") "\\" "/") | safeURL }}
             <a class="navbar-brand me-1" href="{{ "/" }}"><img src="{{ $imagePath }}" alt="{{ .Site.Title }}"></a>
-            {{ $imagePath := printf "%s%s%s" $baseURL $dir (replace (.Param "logo_text") "\\" "/") | safeURL }}
-            <a class="navbar-brand" href="{{ "/" }}"><img src="{{ $imagePath }}" alt="{{ .Site.Title }}"></a>
         </div>
         {{ end }}
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fa-solid fa-bars text-white"></i></button>
