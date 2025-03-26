@@ -2,11 +2,11 @@ const path = require("path");
 
 module.exports = {
   entry: {
-    scripts: "./themes/main/static/js/scripts.js",
+    scripts: "./themes/bootstrap/static/js/scripts.js",
   },
   output: {
     filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "themes/main/static/dist"),
+    path: path.resolve(__dirname, "static/dist"),
     library: {
       type: "module", // Ensure the output is an ES module
     },
