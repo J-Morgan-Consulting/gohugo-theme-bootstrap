@@ -1,0 +1,28 @@
+{{- if .Params.content_blocks }}
+  <div class="content-sections">
+    {{- range .Params.content_blocks }}
+      <section class="content-section mb-5">
+        <div class="container">
+          <div class="row ms-lg-3">
+            <h2 class="mb-3">{{ .title }}</h2>
+            <div class="content-blocks">
+              {{- range .content_blocks }}
+                  <div class="content-block">
+                    <h3 class="h4">{{ .title }}</h3>
+                    <p>{{ .content | markdownify }}</p>
+                    {{- if .ctas }}
+                        <div class="ctas mb-3">
+                        {{- range .ctas }}
+                            <a href="{{ .href }}" class="btn btn-secondary bronze fw-500 me-sm-3 mb-3 mb-sm-0" style="min-width: 150px;">{{ .content }}</a>
+                        {{- end }}
+                        </div>
+                    {{- end }}
+                  </div>
+              {{- end }}
+            </div>
+          </div>
+        </div>
+      </section>
+    {{- end }}
+  </div>
+{{- end }}

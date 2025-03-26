@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+    <head>
+        {{- partial "head.html" . -}}
+    </head>
+    <body>
+        <div id="layoutDefault">
+            <div id="layoutDefault_content" class="bg-white">
+                <main>
+                    {{- partial "header.html" . -}}
+                    <div id="content">
+                        {{- partial "404_partial.html" . -}}
+                    </div>
+                </main>
+            </div>
+            {{- partial "footer.html" . -}}
+        </div>
+        {{- partial "scripts.html" . -}}
+    </body>
+</html>

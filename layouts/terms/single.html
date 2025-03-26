@@ -1,0 +1,19 @@
+{{ define "main" }}
+<section>
+<!-- Wrapper container -->
+<div class="container py-4">
+    <h1>{{ .Param "title" }}</h1>
+    <small>
+        {{ $date := time .Params.posted_on }}
+        Updated on the {{ $date.Day }}{{- if in (slice 1 21 31) $date.Day }}st
+        {{- else if in (slice 2 22) $date.Day }}nd
+        {{- else if in (slice 3 23) $date.Day }}rd
+        {{- else }}th
+        {{- end }} of {{ $date.Format "January" }}, {{ $date.Year }}
+    </small>
+    <p>
+        {{ .Content | safeHTML }}
+    </p>
+</div>
+</section>
+{{ end }}

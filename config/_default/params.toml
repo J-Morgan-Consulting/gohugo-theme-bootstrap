@@ -1,0 +1,6 @@
+[bootstrap]
+ldjson = true
+
+[bootstrap.contactForm.turnstile]
+on = true
+turnstileKey = xx

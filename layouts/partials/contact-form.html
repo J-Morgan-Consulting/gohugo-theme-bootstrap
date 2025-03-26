@@ -1,0 +1,45 @@
+{{ with .Site.GetPage "settings" }}
+{{ $form := .Params.contactForm }}
+<form id="contactForm" data-endpoint="{{ $form.endpoint }}">
+    {{- range $form.fields }}
+    <div class="mb-4">
+        {{ if eq .type "textArea" }}
+            <textarea 
+                class="form-control" 
+                id="{{ .id }}" 
+                name="{{ .name }}" 
+                {{ if .placeholder }}placeholder="{{ .placeholder }}"{{ end }} 
+                {{ if .required }}data-sb-validations="required"{{ end }}
+            >{{ .value | default "" }}</textarea>
+        {{ else }}
+            <input 
+                class="form-control" 
+                id="{{ .id }}" 
+                name="{{ .name }}" 
+                type="{{ .type }}" 
+                {{ if .placeholder }}placeholder="{{ .placeholder }}"{{ end }} 
+                {{ if .required }}data-sb-validations="required"{{ end }}
+                {{ with .value }}value="{{ . }}"{{ end }} 
+            />
+        {{ end }}
+        <div id="{{ .id }}Error" class="error-message" style="color: red;"></div>
+    </div>
+    {{ end }}
+    {{ if .Site.Params.bootstrap.contactForm.turnstile.on }}
+        <div class="cf-turnstile" data-sitekey="{{ .Site.Params.bootstrap.contactForm.turnstile.turnstileKey }}" data-appearance="interaction-only" data-theme="light"></div>
+    {{ end }}
+    <!-- Form submissions success message -->
+    <div class="d-none" id="submitSuccessMessage">
+        <div class="text-center mb-3">Form submission successful!</div>
+    </div>
+
+    <!-- Form submissions error message -->
+    <div class="d-none" id="submitErrorMessage">
+        <div class="text-center text-danger mb-3">Error sending message!</div>
+    </div>
+
+    <div>
+        <button type="submit" class="btn btn-secondary w-100 fs-5">Submit</button>
+    </div>
+</form>
+{{ end }}

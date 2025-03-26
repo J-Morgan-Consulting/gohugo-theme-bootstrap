@@ -1,0 +1,28 @@
+<!-- Navbar-->
+{{ $baseURL := .Site.BaseURL }}
+<nav class="navbar navbar-marketing navbar-expand-lg bg-primary navbar-dark fixed-top w-100 pt-3 pb-3">
+    <div class="container px-5">
+        {{ with .Site.GetPage "settings" }}
+        <div class="d-flex align-items-center">
+            {{ $dir := replace .File.Dir "\\" "/" }}
+            {{ $imagePath := printf "%s%s%s" $baseURL $dir (replace (.Param "logo_image") "\\" "/") | safeURL }}
+            <a class="navbar-brand me-1" href="{{ "/" }}"><img src="{{ $imagePath }}" alt="{{ .Site.Title }}"></a>
+            {{ $imagePath := printf "%s%s%s" $baseURL $dir (replace (.Param "logo_text") "\\" "/") | safeURL }}
+            <a class="navbar-brand" href="{{ "/" }}"><img src="{{ $imagePath }}" alt="{{ .Site.Title }}"></a>
+        </div>
+        {{ end }}
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fa-solid fa-bars text-white"></i></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="d-flex flex-grow-1 justify-content-center">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="{{ "/" }}">Home</a></li>
+                </ul>
+            </div>
+            <div class="d-flex justify-content-end">
+                <a id="navGetInTouch" class="btn btn-primary me-sm-3 mb-3 mb-sm-0 mt-3 mt-md-0" href="{{ "/contact/" }}">
+                    Get in touch
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>

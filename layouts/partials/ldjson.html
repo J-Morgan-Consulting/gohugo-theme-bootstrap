@@ -1,0 +1,67 @@
+{{ if .Site.Params.bootstrap.ldjson }}
+  {{ with .Site.GetPage "settings" }}
+  {{ $baseURL := site.BaseURL }}
+  {{ $dir := replace .File.Dir "\\" "/" }}
+  {{ $logoPath := printf "%s%s%s" $baseURL $dir (replace (.Param "logo") "\\" "/") | safeURL }}
+  {{/*  Creating required vars for the location components  */}}
+  {{- $areaServed := slice }}
+  {{- range .Params.location.areaServed }}
+    {{- $areaServed = $areaServed | append (dict "@type" .type "name" .name) }}
+  {{- end }}
+
+  {{- $contactAreaServed := slice }}
+  {{- range .Params.location.areaServed }}
+      {{- $contactAreaServed = $contactAreaServed | append .nameCode }}
+  {{- end }}
+  {{/*  Creating Languages Array  */}}
+  {{- $languages := slice }}
+  {{- range .Params.languages }}
+      {{- $languages = $languages | append .title }}
+  {{- end }}
+  {{/*  Service Types  */}}
+  {{- $services := slice }}
+  {{- $offers := slice }}
+  {{- range .Params.services }}
+      {{- $services = $services | append .title }}
+      {{- $offers = $offers | append (dict "@type" "Offer" "itemOffered" .title) }}
+  {{- end }}
+  {{/*  Founders  */}}
+  {{- $founders := slice }}
+  {{- range .Params.founders }}
+      {{- $founders = $founders | append (dict "@type" "Person" "name" .title) }}
+  {{- end }}
+  {{/*  Same As Links  */}}
+  {{- $sameAs := slice }}
+  {{- with .Params.linkedinLink }}{{ $sameAs = $sameAs | append . }}{{- end }}
+  {{- with .Params.githubLink }}{{ $sameAs = $sameAs | append . }}{{- end }}
+
+  <script type="application/ld+json">
+  {{- $json := dict
+    "@context" "https://schema.org"
+    "@type" .Params.businessType
+    "name" .Params.title
+    "url" $baseURL
+    "logo" $logoPath
+    "description" (.Params.site_overview | plainify)
+    "location" (dict
+      "@type" "Place"
+      "name" .Params.location.name
+    )
+    "areaServed" $areaServed
+    "contactPoint" (dict 
+      "@type" "ContactPoint"
+      "contactType" "sales"
+      "areaServed" $contactAreaServed
+      "availableLanguage" $languages
+      "url" $baseURL/contact/
+    )
+    "sameAs" $sameAs
+    "serviceType" $services
+    "makesOffer" $offers
+    "foundingDate" .Params.foundingDate
+    "founders" $founders
+  -}}
+  {{ $json | jsonify }}
+  </script>
+  {{ end }}
+{{ end }}
