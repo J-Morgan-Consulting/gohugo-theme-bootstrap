@@ -5,7 +5,7 @@
         {{ with .Site.GetPage "settings" }}
         <div class="d-flex align-items-center">
             {{ $dir := replace .File.Dir "\\" "/" }}
-            {{ $imagePath := printf "%s%s%s" $baseURL $dir (replace (.Param "logo_image") "\\" "/") | safeURL }}
+            {{ $imagePath := printf "%s%s%s" $baseURL $dir (replace (.Param "logo") "\\" "/") | safeURL }}
             <a class="navbar-brand me-1" href="{{ "/" }}"><img src="{{ $imagePath }}" alt="{{ .Site.Title }}"></a>
         </div>
         {{ end }}
