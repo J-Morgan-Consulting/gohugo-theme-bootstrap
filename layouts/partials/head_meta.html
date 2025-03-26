@@ -1,26 +1,56 @@
 {{ $baseURL := .Site.BaseURL }}
+
 {{ if .Params.noindex }}
-<meta name="robots" content="noindex, nofollow">
+  <meta name="robots" content="noindex, nofollow">
 {{ end }}
-<title>{{ if isset .Params.seo "meta_title"}}{{ .Params.seo.meta_title | safeHTML }}{{ else }}{{ .Params.title }}{{ end }}</title>
+
+<title>
+  {{ with .Params.seo.meta_title }}
+    {{ . | safeHTML }}
+  {{ else }}
+    {{ .Params.title }}
+  {{ end }}
+</title>
+
 <meta charset="utf-8" />
-<meta name="description" content='{{ if isset .Params.seo "meta_description"}}{{ .Params.seo.meta_description | safeHTML }}{{ end }}'/>
-<meta name="dc.relation" content="{{ .Site.BaseURL }}"/>
+
+{{ with .Params.seo.meta_description }}
+  <meta name="description" content='{{ . | safeHTML }}'/>
+{{ end }}
+
+<meta name="dc.relation" content="{{ $baseURL }}"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-<meta name="author" content='{{ if isset .Params.seo "meta_author"}}{{ .Params.seo.meta_author }}{{ end }}'/>
-<meta property="og:title" content="{{ if isset .Params.seo "meta_title"}}{{ .Params.seo.meta_title | safeHTML }}{{ else }}{{ .Params.title }}{{ end }}"/>
+
+{{ with .Params.seo.meta_author }}
+  <meta name="author" content='{{ . }}'/>
+{{ end }}
+
+<meta property="og:title" content="{{ with .Params.seo.meta_title }}{{ . | safeHTML }}{{ else }}{{ .Params.title }}{{ end }}"/>
 <meta property="og:type" content="website"/>
-<meta property="og:image" content="{{ .Site.BaseURL }}assets/img/header_logo.webp"/>
+<meta property="og:image" content="{{ $baseURL }}assets/img/header_logo.webp"/>
 <meta property="og:url" content="{{ .Permalink }}"/>
-<meta property="og:description" content='{{ if isset .Params.seo "meta_description"}}{{ .Params.seo.meta_description | safeHTML }}{{ end }}'/>
+
+{{ with .Params.seo.meta_description }}
+  <meta property="og:description" content='{{ . | safeHTML }}'/>
+{{ end }}
+
 <meta property="og:site_name" content="{{ .Site.Title }}"/>
-<!-- <meta name="twitter:card" content="summary"/>
+
+<!-- Twitter meta tags (optional) -->
+{{/* Uncomment if you plan to use Twitter meta */}}
+{{/*
+<meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="{{ .Params.title }}"/>
-<meta name="twitter:description" content='{{ .Param "description" | safeHTML }}'/>
-<meta name="twitter:image" content="{{ .Site.BaseURL }}/assets/img/logo.jpg"/>
+{{ with .Params.seo.meta_description }}
+  <meta name="twitter:description" content='{{ . | safeHTML }}'/>
+{{ end }}
+<meta name="twitter:image" content="{{ $baseURL }}assets/img/logo.jpg"/>
 <meta name="twitter:url" content="{{ .Permalink }}"/>
 <meta name="twitter:site" content="@JamesMorgan654"/>
-<meta name="twitter:creator" content="@JamesMorgan654"/> -->
+<meta name="twitter:creator" content="@JamesMorgan654"/>
+*/}}
+
 <link rel="canonical" href="{{ .Permalink | absURL }}">
 <link rel="alternate" hreflang="{{ .Site.LanguageCode }}" href="{{ .Permalink | absURL }}" />
+
 {{- partial "ldjson.html" . -}}

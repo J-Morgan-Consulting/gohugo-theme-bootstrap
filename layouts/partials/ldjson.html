@@ -53,7 +53,7 @@
       "contactType" "sales"
       "areaServed" $contactAreaServed
       "availableLanguage" $languages
-      "url" $baseURL/contact/
+      "url" (printf "%scontact/" $baseURL)
     )
     "sameAs" $sameAs
     "serviceType" $services
