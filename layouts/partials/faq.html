@@ -1,17 +1,15 @@
-{{- if .Params.faq_section }}
-<section id="servicesSection" class="bg-white py-10 mt-5" style="padding-bottom: 2rem !important;">
     <div class="container">
         <div class="row ms-lg-3">
             <div class="col-lg-12 order-0 order-lg-1">
-                <h2 class="mb-3">{{ .Params.faq_section.title }}</h2>
+                <h2 class="mb-3 text-center fs-xxl fw-700">{{ .title }}</h2>
                 <div class="accordion accordion-flush" id="accordionFlushExample">
-                    {{- range $index, $faq := .Params.faq_section.content_blocks -}}
+                    {{- range $index, $faq := .content_blocks -}}
                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-heading{{ $index }}">
+                        <p class="accordion-header" id="flush-heading{{ $index }}">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{{ $index }}" aria-expanded="false" aria-controls="flush-collapse{{ $index }}">
                                 <div style="font-size: large; font-weight:450;">{{ $faq.q }}</div>
                             </button>
-                        </h2>
+                          </p>
                         <div id="flush-collapse{{ $index }}" class="accordion-collapse collapse" aria-labelledby="flush-heading{{ $index }}" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body">
                                 <div class="faq">{{ $faq.a | markdownify }}</div>
@@ -43,5 +41,3 @@
           ]
         }
         </script>                      
-</section>
-{{ end }}
